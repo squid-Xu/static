@@ -124,12 +124,16 @@
         const fullPageContainerDom = document.getElementById('fullPageContainer')
         const lisDom = document.querySelectorAll('.fp-right li')
 
-        fullPageContainerDom.addEventListener('mousewheel', mouseWheelHandle)//其他浏览器的滚轮事件使用 mousewheel
         fullPageContainerDom.addEventListener('DOMMouseScroll', mouseWheelHandle)//Firefox的滚轮事件使用 DOMMouseScroll
+        fullPageContainerDom.addEventListener('mousewheel', mouseWheelHandle)//其他浏览器的滚轮事件使用 mousewheel
         document.addEventListener('keydown', createKeyDown)//绑定键盘事件
 
         // 监听键盘事件
         function createKeyDown(e) {
+            if (fullpage.isScrolling) {
+                // 判断是否可以滚动
+                return false;
+            }
             if (e.code === 'ArrowUp') {
                 pre();
             }
